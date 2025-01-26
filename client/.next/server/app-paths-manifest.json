@@ -1,8 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/fetchAccount/route": "app/api/fetchAccount/route.js",
-  "/api/fetchGames/route": "app/api/fetchGames/route.js",
-  "/profile/[id]/page": "app/profile/[id]/page.js",
-  "/api/resolveVanityURL/route": "app/api/resolveVanityURL/route.js"
-}

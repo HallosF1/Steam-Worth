@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/halil/VSCodeProjects/steam_worth/app/loading.tsx"],"sourcesContent":["import React from 'react'\r\n\r\nexport default function Loading() {\r\n  return (\r\n    <div className=\"flex justify-center items-center h-screen\">\r\n      <span>Loading...</span>\r\n    </div>\r\n  )\r\n}\r\n"],"names":[],"mappings":";;;;;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;sBAAK;;;;;;;;;;;AAGZ"}},
-    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

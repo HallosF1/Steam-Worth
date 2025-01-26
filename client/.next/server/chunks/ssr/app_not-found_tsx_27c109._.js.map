@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/halil/VSCodeProjects/steam_worth/app/not-found.tsx"],"sourcesContent":["import React from 'react';\r\nimport Link from 'next/link';\r\n\r\nexport default function NotFound() {\r\n  return (\r\n    <div className='flex flex-col items-center justify-center h-screen px-4'>\r\n      <h1 className='mt-2 text-center text-lg md:text-xl lg:text-2xl'>Oops, something went wrong...</h1>\r\n      <h1 className='mt-1 text-center text-sm md:text-base lg:text-lg'>Are you sure you&#39;re on the correct path?</h1>\r\n      <Link className='mt-4 rounded-lg bg-slate-800 hover:bg-slate-600 text-slate-400 px-4 py-2 text-lg md:text-xl' href=\"/\">\r\n        Return Home Page\r\n      </Link>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;AACA;;;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC;gBAAG,WAAU;0BAAkD;;;;;;0BAChE,8OAAC;gBAAG,WAAU;0BAAmD;;;;;;0BACjE,8OAAC,4JAAA,CAAA,UAAI;gBAAC,WAAU;gBAA8F,MAAK;0BAAI;;;;;;;;;;;;AAK7H"}},
-    {"offset": {"line": 50, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
