@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/halil/VSCodeProjects/steam_worth/app/error.tsx"],"sourcesContent":["//import Link from 'next/link';\r\n\r\nexport default function ErrorBoundary() {\r\n  return (\r\n    <div className='flex flex-col items-center justify-center h-screen px-4'>\r\n      <h1 className='mt-2 text-center text-lg md:text-xl lg:text-2xl'>An error was encountered while processing your request:\r\n      </h1>\r\n      <h1 className='mt-2 text-center text-lg md:text-xl lg:text-2xl'>The specified profile could not be found.</h1>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":"AAAA,+BAA+B;;;;;;AAEhB,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC;gBAAG,WAAU;0BAAkD;;;;;;0BAEhE,8OAAC;gBAAG,WAAU;0BAAkD;;;;;;;;;;;;AAGtE"}},
+    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
