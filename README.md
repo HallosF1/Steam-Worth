@@ -1,6 +1,6 @@
 # Steam Worth
 
-Log in with your Steam account to analyze your account's games and information. This project calculates the estimated value of your Steam account based on your games and information.
+Analyze your account's games and information. This project calculates the estimated value of your Steam account based on your games and information.
 
 ## Features
 
