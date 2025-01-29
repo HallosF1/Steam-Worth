@@ -1,23 +1,22 @@
-from sqlalchemy import Column, Integer, String, create_engine, Float
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy.orm import DeclarativeBase
 
-DATABASE_URL = "sqlite:///games.db"
-engine = create_engine(DATABASE_URL, echo=True)
-Base = declarative_base()
+DATABASE_URL = "sqlite+aiosqlite:///games.db"
 
-class Game(Base):
-    __tablename__ = "games"
+engine = create_async_engine(DATABASE_URL, echo=True)
+SessionLocal = async_sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    appid = Column(Integer, nullable=False)
-    name = Column(String, nullable=False)
-    price = Column(Float, nullable=False)
+class Base(DeclarativeBase):
+    pass
 
-    def __init__(self, appid: int, name: str, price: float):
-        self.appid = appid
-        self.name = name
-        self.price = float(price) / 100
 
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
+async def get_db():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        await db.close()

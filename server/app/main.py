@@ -1,48 +1,45 @@
-from fastapi import FastAPI
-from services.games import get_games, save_game
-from db.database import Game, Session
+from fastapi import FastAPI, Depends, HTTPException
+from redis.asyncio import Redis
+import httpx
+import json
+from contextlib import asynccontextmanager
+from services.redis_service import get_from_redis, set_to_redis
+from services.game_service import get_games, save_game, get_game_by_id, get_games_by_ids
+from db.database import get_db
 
-session = Session()
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.redis = Redis(host="localhost", port=6380)
+    app.state.http_client = httpx.AsyncClient()
+    yield
+    await app.state.redis.close()
+    await app.state.http_client.aclose()
 
-def get_db():
-    session = Session()
-    try:
-        yield session  
-    finally:
-        session.close()  
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/games")
-async def list_games():
+async def list_games(db=Depends(get_db)):
+    redis = app.state.redis
     page = 1
+    key = f"games:page:{page}"
 
-    while True:
-
-        games = get_games(page)
-        if not games:
-            break
-        if "error" in games:
-            return games
-        
-        for game_id, game_data in games.items():
-            price = game_data.get("price")
-            if price is None:
-                price = 0
-            game = Game(game_data.get("appid"), game_data.get("name"), price)
-            session.add(game)
-        session.commit()
-        page += 1
-    return {"Successfull": "Games have saved in your database"}
+    cached_games = await get_from_redis(redis, key)
+    if cached_games:
+        return {"games": cached_games.decode()}
+    games = await get_games(db, page)
+    await set_to_redis(redis, key, json.dumps(games), ttl=3600)
+    return {"games": games}
 
 @app.get("/games/{id}")
-async def find_game_by_id(id: int):
-    game = session.query(Game).filter(Game.appid == id).first()
+async def find_game_by_id(id: int, db=Depends(get_db)):
+    redis = app.state.redis
+    key = f"game:{id}"
+    cached_game = await get_from_redis(redis, key)
+    if cached_game:
+        game_data = json.loads(cached_game.decode())
+        return game_data
+    game = await get_game_by_id(db, id)
     if not game:
-        print(f"Game not found with {id} id")
-        game = save_game(id)
-        return game
+        raise HTTPException(status_code=404, detail=f"Game with ID {id} not found")
+    await set_to_redis(redis, key, json.dumps(game), ttl=3600)
     return game
-
-@app.get("/games_owned/")
-async def find_games_by_ids(ids: list):
-    return session.query(Game).filter(Game.appid.in_(ids)).all()
