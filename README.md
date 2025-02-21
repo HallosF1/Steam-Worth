@@ -18,11 +18,6 @@ Analyze your account's games and information. This project calculates the estima
 
 To run this project locally, follow the steps below.
 
-### Prerequisites
-
-- Node.js (for the frontend)
-- Python 3.9+ (for the backend)
-
 ### Installation Steps
 
 1. **Clone the Repository**
